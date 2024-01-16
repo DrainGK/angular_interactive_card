@@ -1,0 +1,47 @@
+.container{
+    display: flex;
+    align-items: center;
+
+
+    .background{
+        height: 100vh;
+        background-image: url(../assets/img/bg-main-desktop.png);
+        background-repeat: no-repeat;
+    }
+
+    .card-container{
+        width: 100%;
+        height: 100%;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        gap: 2rem;
+    }
+
+    .form-container{
+        width: 100%;
+        display: flex;
+        justify-content: center;
+    }
+
+    @media screen and (max-width: 768px){
+        flex-direction: column;
+
+        .background{
+            width: 100%;
+            height: 50%;
+            background-image: url(../assets/img/bg-main-mobile.png);
+            background-repeat: no-repeat;
+            background-size: cover;
+        }
+
+        .card-container{
+            position: relative;
+            height: 25vh;
+        }
+
+        .form-container{
+            margin-top: 5rem;
+        }
+    }
+}

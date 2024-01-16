@@ -1,0 +1,11 @@
+<div class="front-card">
+    <img src="../../../assets/img/card-logo.svg" alt="logo" >
+    <p class="card-number">{{ cardDetails.cardNumber }}</p>
+    <div class="info-container">
+        <p class="cardholder-name">{{ cardDetails.cardholderName }}</p>
+        <p class="exp-date">{{ getFormattedMonth() }}/{{ getFormattedYear() }}</p>
+    </div>
+</div>
+<div class="back-card">
+    <p class="cvc">{{ getFormattedCvc() }}</p>
+</div>

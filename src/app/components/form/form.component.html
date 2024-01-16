@@ -1,0 +1,96 @@
+@if(!submitted){
+    <form class="credit-form" (ngSubmit)="onSubmit()">
+        <mat-form-field class="full-width">
+            <mat-label>CARDHOLDER NAME</mat-label>
+            <input type="text" matInput [(ngModel)]="cardDetails.cardholderName" (ngModelChange)="onInputChange()" [formControl]="nameFormControl" [errorStateMatcher]="matcher" placeholder="e.g. Jane Appleseed">
+            @if (nameFormControl.hasError('required')){
+                <mat-error color="warn">name is <strong>required</strong></mat-error>
+            }
+        </mat-form-field>
+    
+        <mat-form-field class="full-width">
+            <mat-label>CARD NUMBER</mat-label>
+            <input 
+                type="text" 
+                maxlength="19" 
+                matInput 
+                [(ngModel)]="cardDetails.cardNumber" 
+                (ngModelChange)="onInputChange()" 
+                [formControl]="cardNumberFormControl"  
+                placeholder="e.g. 1234 5678 9123 0000"
+                (input)="formatCardNumber($event)"
+                >
+            @if (cardNumberFormControl.hasError('required')){
+                <mat-error color="warn">card number is <strong>required</strong></mat-error>
+            }
+            @if (cardNumberFormControl.hasError('invalidCardNumber')){
+                <mat-error color="warn">Card number must be 16 digits</mat-error>
+            }
+        </mat-form-field>
+    
+        <div class="card-infos-container">
+            <div class="date-container full-width" id="date">
+                <label for="date">EXP.DATE (MM/YY)</label>
+                
+                <div class="date">
+                    <mat-form-field >
+                        <input 
+                        type="number" 
+                        matInput 
+                        [(ngModel)]="cardDetails.month" 
+                        (ngModelChange)="onInputChange()" 
+                        [formControl]="expMonthFormControl" 
+                        placeholder="MM"
+                        min="1" 
+                        max="12"
+                        >
+                        @if (expMonthFormControl.hasError('required')){
+                            <mat-error color="warn">can't be empty</mat-error>
+                        }
+                    </mat-form-field>
+            
+                    <mat-form-field >
+                        <input 
+                        type="number" 
+                        matInput 
+                        [(ngModel)]="cardDetails.year" 
+                        (ngModelChange)="onInputChange()" 
+                        [formControl]="expYearFormControl" 
+                        placeholder="YY"
+                        min="00" 
+                        max="99"
+                        >
+                        @if (expYearFormControl.hasError('required')){
+                            <mat-error color="warn">can't be empty</mat-error>
+                        }
+                    </mat-form-field>
+                </div>
+            </div>
+            
+            <div class="cvc" id="cvc">
+                <label for="cvc">CVC</label>
+                <mat-form-field >
+                    <input 
+                    type="number" 
+                    matInput 
+                    [(ngModel)]="cardDetails.cvc" 
+                    (ngModelChange)="onInputChange()" 
+                    [formControl]="cvcFormControl" 
+                    placeholder="000"
+                    min="0" 
+                    max="999"
+                    >
+                    @if (expYearFormControl.hasError('required')){
+                        <mat-error color="warn">can't be empty</mat-error>
+                    }
+                </mat-form-field>
+            </div>
+        </div>
+    
+        <button type="submit" mat-raised-button color="accent">Submit</button>
+    </form>
+}
+
+@if (submitted){
+    <app-thanks (continueClicked)="onContinue()"></app-thanks>
+}
